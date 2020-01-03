@@ -1,4 +1,5 @@
 # Prologue
+##### ※ 이 문서는 [Visual Studio :: Marketplace :: Automatic Version 2](https://marketplace.visualstudio.com/items?itemName=PrecisionInfinity.AutomaticVersions) 를 한국어로 번역한 내용 및 관련 내용을 담고 있습니다.
 
 ##### 버전관리의 필요성과 수동 관리의 한계
 소프트웨어를 만드는 것 자체 뿐 아니라, 소프트웨어를 유지/관리하는 것도 중요하다. 또한 초기 개발 단계를 지나 추가적인 개발 단계를 거쳐갈 때, 각 시기에 따라 호환성의 문제가 발생하는 경우가 있다. 이를 위해 "**버전**"을 관리해야 하지 않을까?  
@@ -13,8 +14,6 @@
 ## 소개
 이 프로그램의 Full Name은 **Automatic Versions for Visual Studio** 정도가 될 것 같다. 말 그대로 MS Visual Staudio 프로젝트의 버전을 자동으로 설정하는 **Plugin**이다.  
 이 플러그인은 **Full .Net** , **.Net Standard** , **.Net Core** 에 대한 C# 및 VB 프로젝트의 Assembly, AssemblyFile, AssemblyInfo, ClickOne 및 패키지 버전을 자동으로 증가시킨다.
-
-이 문서는 [Visual Studio :: Marketplace :: Automatic Version 2](https://marketplace.visualstudio.com/items?itemName=PrecisionInfinity.AutomaticVersions)를 한국어로 번역한 내용을 담고 있습니다.
 
 ## 특징
 ### 설정 적용
