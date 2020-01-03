@@ -37,7 +37,7 @@
 
 ### Version Type
 ##### Assembly Version
-AssemblyInfo.cs./vb 파일에서 AssemblyVersion 속성을 업데이트한다.  
+AssemblyInfo.cs/.vb 파일에서 AssemblyVersion 속성을 업데이트한다.  
 이 값은 .Net에서 **strong naming**이 사용된 경우 로드 할 라이브러리 버전을 판별하는 데 사용된다.
 ```
 // 버전 번호는 다음 코드로 알 수 있다.
@@ -56,7 +56,7 @@ Assembly Manifest는 MSIL(Microsoft Intermediate Language) 코드가 있는 PE �
 [Link | MicroSoft :: Assembly Manifest](https://docs.microsoft.com/ko-kr/dotnet/standard/assembly/manifest)
 
 ##### Assembly File Version
-AssemblyInfo.cs./vb 파일에서 AssemblyFileVersion 속성을 업데이트한다. 이 값은 운영체제에서 .dll 또는 .exe의 세부 정보 탭에서 "**파일 버전**"으로 사용된다. 예를 들어 기능 기반 API가 이전 버전과의 호환성을 위해 동일한 패치를 제품에 적용하는 경우 파일 버전을 늘리는 것.  
+AssemblyInfo.cs/.vb 파일에서 AssemblyFileVersion 속성을 업데이트한다. 이 값은 운영체제에서 .dll 또는 .exe의 세부 정보 탭에서 "**파일 버전**"으로 사용된다. 예를 들어 기능 기반 API가 이전 버전과의 호환성을 위해 동일한 패치를 제품에 적용하는 경우 파일 버전을 늘리는 것.  
 AssemblyVersion은 동일하게 유지하고, 패치가 있는 dll/exe와 패치가 없는 dll/exe를 확인하기 위해 버전을 늘릴 수 있다.
 ```
 // 파일 버전은 다음 코드로 접근 할 수 있다.
@@ -66,7 +66,7 @@ Console.WriteLine(fileVersion); // -> "1.2.32.2"
 ```
 ##### Assembly Info Version
 (.Net Framework)  
-AssemblyInfo.cs./vb 파일에서 AssemblyImformationalVersion 속성을 업데이트한다. 이 값은 운영 체제에서 .dll 또는 .exe의 세부 정보 탭에서 "**제품 버전**"으로 사용된다.  
+AssemblyInfo.cs/.vb 파일에서 AssemblyInformationalVersion 속성을 업데이트한다. 이 값은 운영 체제에서 .dll 또는 .exe의 세부 정보 탭에서 "**제품 버전**"으로 사용된다.  
 이 버전 유형은 Semantic Versioning에 사용할 수 있는 옵션이 있다는 점이 특별하다. 또한, NuGet Publishes 에 사용할 수 있다.  
 이 버전 속성에는 제품 이름을 포함 할 수 있는 '접두사 텍스트'를 사용할 수 있다. 접두사 텍스트를 사용하려면 AssemblyInfo 파일에서 정적 접두사 텍스트를 설정하면 자동 버전은 이를 무시하고 버전 번호만 업데이트한다. (Semantic Versioning에서는 허용하지 않기 때문에 사용X)
 ```
