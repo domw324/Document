@@ -6,8 +6,8 @@
 
 ##### 자동 버전 관리 플러그인
 
-현재 C++개발자로서 주로 MicroSoft Visual Studio를 사용하여 개발하고 있기 때문에 MS VS에서 구동 가능한 자동 버전 변경 플러그인을 적용하고자 한다.  
-소개할 기능은 "**Automatic Versions 2**"이다. ~~직접 공부하고 직접 적용해보면서 적을 계획이기 때문에 글의 마지막에는 "적용 실패"가 나올 수도 있다는 점이 함정이라면 함정.~~
+현재 주로 MicroSoft Visual Studio를 사용하여 개발하고 있기 때문에 MS VS에서 구동 가능한 자동 버전 변경 플러그인을 적용하고자 한다. 소개할 기능은 "**Automatic Versions 2**"이다.  
+~~직접 공부하고 직접 적용해보면서 적을 계획이기 때문에 글의 마지막에는 "적용 실패"가 나올 수도 있다는 점이 함정이라면 함정. 현재 사내에서 진행하는 프로젝트가 C++기반 인데,, 이건 C#과 Visual Basic을 위해 만들어졌다고 하니까... 안될 것 같은 느낌적인 느낌이다.~~
 
 # Automatic Versions 2
 ## 소개
@@ -80,6 +80,30 @@ Console.WriteLine(version); // -> "1.2.32-alpha-01"
 
 ##### ClickOnce Version (BETA/PRO)
 AssemblyOnce 버전 또는 AssemblyFileVersion과 일치하도록 ClickOnce 버전을 업데이트한다.
+
+## Custom System.Version Options
+**Major.Minor.Build.Revision** 형식을 원하는 증가 타입으로 개별적으로 구성 가능  
+
+![img_Custom_System.Version_Options](/images/AV2_Custom_System.Version_Options.png)
+- None : 증가시키지 않음
+- None w/AutoReset : 값을 수동으로 설정할 수 있으며, 더 큰 숫자가 증가하지 않는 한 변경되지 않음. 이 경우 0으로 재설정 된다.
+- Increment (Always) : 항상 값을 1씩 증가시킨다. (예외적으로 증분 시 재설정을 사용하는 경우, 새 버전 빌드를 선택하면 값이 재설정 된다.)
+- Increment w / AutoReset : 더 큰 숫자가 증가하지 않으면 값을 1씩 증가시킨다. 이 경우 0으로 재설정 됨.
+- On Demand (Build New Version) : **새 프로젝트 (상황에 맞는)빌드 명령**을 사용하여 빌드를 시작할 때만 값을 1씩 증가. Major 및 Minor 모두 이 값으로 설정하고 상황에 맞는 메뉴를 사용하여 증가시킬 값을 제어할 수 있다. (하단의 사용법 참고)
+- On Demand w / Reset (Obsolete) : 각 프로젝트 상황에 맞는 메뉴에서 **새 버전 빌드 명령**을 사용하여 빌드 시작할 대만 값을 1씩 증가. 모든 증가 하위 값을 재설정. _레거시 코드, 이 기능은 이후 버전에서는 지원되지 않을 수 있음._
+- Day Of Year (ddd) : DateTime.UtcNow.DayOfYear (DayOfYear = the current day of the year)
+- Day (dd) : 현재 달의 날짜 (the current day of the month)
+- Month (MM) : 올해의 현재 월 (the current month of the year)
+- Year (yyyy) : 현재 연도 (the current year. ex: 2020)
+- Short Year (yy) : 2자리 현재 연도 (2 digit current year. ex: 20)
+- Date (yyddd) : 2자리 현재 연도 + 올해 중 현재 날짜 (where ddd 는 the day of year): 24211.
+- Date (MMdd) : 2자리 월 + 2자리 일
+- UTC Time (HHmm) : 현재 시간 (2자리 시간 + 2자리 분)
+- Delta Days (since 1/1/2000) : 2000년 1월 1일 이후 발생한 일수
+- UTC Seconds Since Midnight/2 : 버전 값에 사용자 정의 고유 시간 기반 스탬프를 사용. 하루 중 시간을 가장 구체적으로 나타낼 수 있다. 이 때 숫자를 2로 나누어야 오버플로우가 발생하지 않는다.
+
+## Custom Semantic Version (BETA/PRO)
+![img_Custom_Semantic_Version](/images/AV2_Custom_Semantic_Version.png)
 
 ## 설치
 ##### 다운로드
