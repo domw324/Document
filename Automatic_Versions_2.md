@@ -1,4 +1,4 @@
-# Prologue
+# Intro
 ##### ※ 이 문서는 [Visual Studio :: Marketplace :: Automatic Version 2](https://marketplace.visualstudio.com/items?itemName=PrecisionInfinity.AutomaticVersions) 를 한국어로 번역한 내용 및 관련 내용을 담고 있습니다.
 
 ##### 버전관리의 필요성과 수동 관리의 한계
@@ -127,3 +127,6 @@ AssemblyOnce 버전 또는 AssemblyFileVersion과 일치하도록 ClickOnce 버�
 ##### 다운로드
 [Download | Visual Studio :: Marketplace :: Automatic Version 2](https://marketplace.visualstudio.com/items?itemName=PrecisionInfinity.AutomaticVersions) 에서 다운로드 할 수 있다.
 (Visual Studio 공식 홈페이지 - Marketplace - Automatic Versions 2)
+
+# Outro
+간단히 정리 해보자면, 이 플러그인은 각 속성 옵션을 설정해놓으면 자동으로 버전 변경을 해주는 유용한 보조 프로그램으로 볼 수 있다. 단, **C#**과 **Visual Basic**에만 적용할 수 있다. ~~**for Visual Studio**라서 혹시나 C++에도 적용할 수 있을지몰라! 라는 생각에 공부 해본 건데.. 본래 문서 작성 취지는 이게 아니었는데.. 다른 방법을 찾아봐야겠다.~~
