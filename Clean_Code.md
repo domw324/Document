@@ -202,7 +202,7 @@ C 인스턴스 변수에 저장된 객체
 : **공개 변수만 있고 함수가 없는 클래스**. 데이터베이스 통신, 소켓에서 받은 메시지 구문 분석 시 유용.
 - 빈(bean)구조
   - 비공개 변수를 조회/설정 함수로 조작한다.
-  ```cpp
+  ```java
     public class Address {
       private String street;
       // ...
@@ -222,3 +222,89 @@ C 인스턴스 변수에 저장된 객체
   - 공개 변수가 있거나 비공개 변수에 조회/설정 함수가 있는 자료 구조, 대개 save나 find 같은 탐색 함수도 제공
   - 데이터베이스 테이블이나 다른 소스에서 자료를 직접 변환한 결과
   - 활성 레코드 **자료구조**를 객체로 취급하는 경우 잡종 구조가 나올 수 있으니 주의할 필요가 있다.
+
+## 07. 오류처리
+코드는 읽기도 좋아야 하지만 **안정성**도 높아야 한다. 그래서 오류 처리는 프로그램에 반드시 필요한 요소이다. 물론 오류 처리는 프로그램의 안정성 유지에 매우 중요하지만 오류 처리 코드 때문에 논리를 이해하기 어려워진다면 곤란하다.
+##### 오류 코드보다 예외 사용
+오류 플래그를 설정하거나 호출자에게 오류 코드를 반환하는 방법은 즉시 오류를 확인해야 하기 때문에 코드가 복잡해지고, 다음 단계로의 매끄러운 읽기를 방해한다. 하지만 예외를 사용해 오류를 처리하면 **실제 기능 구현 알고리즘과 오류 처리 알고리즘을 분리**할 수 있기 때문에 코드가 깔끔해진다.
+```java
+  // 1. 오류 코드 사용
+  public void sendShutDown() {
+    DeviceHandle handle = getHandle(DEV1); // 디바이스 상태 점검
+    if (handle != DeviceHandle.INVALID) {
+      retrieveDeviceRecord(handle); // 레코드 필드에 디바이스 상태 저장
+      if (record.getStatus() != DEVICE_SUSPENDED) {
+        // 디바이스가 정지상태가 아니면 종료
+        pauseDevice(handle);
+        clearDeviceWorkQueue(handle);
+        closeDevice(handle);
+      }
+      else {
+        logger.log("Device suspended. Unable to shut down");
+      }
+    }
+    else {
+      logger.log("Invalid handle for: " + DEV1.toString());
+    }
+    // ...
+  }
+
+  // 2. 예외 사용
+  public void sendShutDown() {
+    try {
+      tryToShutDown();
+    }
+    catch (DeviceShutDownError e) {
+      logger.log(e);
+    }
+  }
+
+  private void tryToShutDown() throws DeviceShutDownError {
+    DeviceHandle handle = getHandle(DEV1);
+    DeviceRecord record = retrieveDeviceRecord(handle);
+
+    pauseDevice(handle);
+    clearDeviceWorkQueue(handle);
+    closeDevice(handle);
+  }
+
+  private DeviceHandle getHandle(DeviceID id) {
+    // ...
+    throw new DeviceShutDownError("Invalid handle for: " + id.toString());
+    // ...
+  }
+```
+##### Try-Catch-Finally
+- 예외가 발생하는 코드를 try-catch-finally문으로 시작하면 프로그램 안에 일종의 범위를 지정 할 수 있다.
+- 먼저 강제로 예외를 일으키는 테스트 케이스를 작성한 후 테스트를 통과하게 코드를 작성하는 것도 방법이다.
+##### 미확인(unchecked) 예외 사용
+- 확인된 예외는 OCP(Open Closed Principle)를 위반한다.
+- 대규모 시스템의 말단 함수에서 새로운 예외를 던지는 경우, 선언부에 throws 절을 추가해야하고 이 함수를 호출하는 함수들은 catch 블록에서 새로운 예외를 처리하거나 선언부에 throw 절을 추가해줘야 한다. 따라서 확인된 예외가 캡슐화를 깨버리게 된다.
+##### 예외에 의미 제공
+- 예외를 던질 때문 전후 상황이 충분히 설명되어야 한다.
+- 오류 메시지에 정보를 담아 예외와 함께 던지는 방법이 좋다. (ex: 실패한 연산이름, 실패 유형)
+##### 호출자 고려한 예외 클래스 정의
+- 예외 유형과는 무관하게 호출하는 라이브러리 API를 예외를 처리하는 클래스로 감싸서(**wrapper Class**) 예외 유형 하나를 반환하게 하면 좋다.
+```java
+// LocalPort: ACMEPort 클래스가 던지는 예외를 잡아 변환하는 wrapper Class
+LocalPort port = new LocalPort(12);
+try {
+  port.open();
+}
+catch (ProtDeviceFailure e) {
+  reportError(e);
+  logger.log(e.getMessage(), e);
+}
+finally {
+  // ...
+}
+```
+- 위 방법은 외부 API를 사용할 때 예외를 처리할 수 있는 최선의 방법이다.
+- 위 방법으로 외부 라이브러리와 프로그램 사이의 의존성을 크게 줄일 수 있다. 또한 다른 라이브러리로 갈아탈 때도 적은 비용이 든다.
+- wrapper Class에서 외부 API를 호출하는 대신 테스트 코드를 넣어주면 프로그램 테스트도 쉬워진다.
+##### 정상 흐름 정의
+- (특수 사례 패턴의 경우) 클래스를 만들거나 객체를 조작해 처리하면 좋다. 그러면 클라이언트 코드가 예외적인 상황을 처리할 필요가 없어진다.
+##### null 반환/전달 지양
+- null은 다른 사람(호출자)에게 문제의 책임을 떠넘기는 것이다!
+- null 자체를 정상적인 인수로 기대하는 경우가 아니라면 null은 전달하지 않는 것이 옳다.
+- **빈 리스트**를 반환하거나, **assert()**를 사용해 null이 전달되지 않게 null을 처리할 수 있다.
