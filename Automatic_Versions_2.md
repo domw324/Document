@@ -130,3 +130,4 @@ AssemblyOnce 버전 또는 AssemblyFileVersion과 일치하도록 ClickOnce 버�
 
 # Outro
 간단히 정리 해보자면, 이 플러그인은 각 속성 옵션을 설정해놓으면 자동으로 버전 변경을 해주는 유용한 보조 프로그램으로 볼 수 있다. 단, **C#**과 **Visual Basic**에만 적용할 수 있다. ~~**for Visual Studio**라서 혹시나 C++에도 적용할 수 있을지몰라! 라는 생각에 공부 해본 건데.. 본래 문서 작성 취지는 이게 아니었는데.. 다른 방법을 찾아봐야겠다.~~
+~~새로운 방법으로는 결국 git lab CI pipeline에서 .rc 파일이 참조할 resouce파일의 값을 직접 조작하는 것으로..!~~
