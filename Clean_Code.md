@@ -491,6 +491,16 @@ finally {
 - 언어가 제공하는 클래스를 검토
 - (예를 들어 자바에서는 java.utilconcurrent, java.util.concurrent.atomic, java.util.concurrent.locks)
 ##### 실행 모델을 이해할 것
+- 기본 용어
+  - 한정된 자원(Bound Resource) : 다중 스레드 환경에서 사용하는 자원, 크기나 숫자가 제한적. (데이터베이스 연결, 길이가 일정한 읽기/쓰기 버퍼 등)
+  - 상호 배제(Mutual Exclusion) : 공유 자료 및 자원을 한 번에 한 스레드만 사용할 수 있는 경우
+  - 기아(Starvation) : 한 스레드가 굉장히 오래 혹은 영원히 자원을 점유하기 위해 대기하는 경우
+  - 데드락(Deadlock) : 여러 스레드가 서로가 끝나는 것을 기다리는 경우
+  - 라이브락(Livelock) : 락을 거는 단게에서 각 스레드가 서로를 방해.
+-  다중 스레드 프로그래밍 활용 모델
+  - 생산자-소비자<sup>Producer-Consumer</sup>
+  - 읽기-쓰기<sup>Readers-Writers</sup>
+  - 식사하는 철학자들<sup>Dinig Philosophers</sup>
 ##### 동기화하는 메서드 사이에 존재하는 의존성을 이해할 것
 ##### 동기화하는 부분을 작게 제작
 ##### 올바른 종료 코드 구현
