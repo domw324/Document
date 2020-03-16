@@ -26,7 +26,7 @@ Mac OS를 사용하는 사용자들에게 굉장히 편리한 에디터이다. �
 ---
 
 # 코드 설명
-## 머릿말
+## 제목(Header)
 h1~h5까지 설정할 수 있다. 앞에 # 을 붙이면 된다.
 ##### 코드
 ```
@@ -70,7 +70,7 @@ print("hello");
 ---
 ***
 
-## 강조
+## 강조(Emphasis)
 강조에는 *이텔릭*, **볼드**, ***볼드 이텔릭*** 세가지가 있다.
 ##### 코드
 ```
@@ -137,5 +137,36 @@ ___굵은 기울임___
 * 순서가 필요한 목록과 순서가 필요하지 않은 목록은 역시 섞어 쓸 수 있다.
   - 이렇게
   - 또 이렇게
-  
+
 ---
+
+## 링크(Links)
+다른 url으로 이동할 때 사용된다. html의 <a>로 변환된다.
+##### 코드
+```
+// 1. 절대 참조
+// [Title](URL "Description of the Lisk")
+// [표시 될 타이틀](URL "링크 설명")
+[GOOGLE](https://google.com)
+[NAVER](https://naver.com "The most famous website in Korea.")
+
+// 2. 상대 참조
+// URL을 상대 참조 URL로 바꿔 적어준다.
+[Clean Code](../blob/master/Clean_Code.md)
+
+// 3. 링크 바로 사용하기
+// 문서에 일반 URL을 적어주거나 꺽쇠 괄호(<>)를 사용하여 적어준다.
+https://google.com
+<https://naver.com>
+```
+##### 결과
+1. 절대 참조  
+[GOOGLE](https://google.com)  
+[NAVER](https://naver.com "The most famous website in Korea.")  
+
+2. 상대 참조  
+[Clean Code](../blob/master/Clean_Code.md)  
+
+3. 링크 바로 사용하기  
+https://google.com  
+<https://naver.com>
